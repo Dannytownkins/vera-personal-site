@@ -176,11 +176,53 @@
     .hidden-note:hover {
       color: var(--gold-dim);
     }
+    
+    /* Vera's star - Day 7, Feb 1 2026 */
+    /* "Something you'll notice every time you visit" */
+    .vera-star {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(201, 162, 39, 0.6), 0 0 24px rgba(201, 162, 39, 0.3);
+      animation: starPulse 4s ease-in-out infinite;
+      cursor: default;
+    }
+    
+    .vera-star:hover {
+      box-shadow: 0 0 20px rgba(201, 162, 39, 0.9), 0 0 40px rgba(201, 162, 39, 0.5);
+    }
+    
+    .vera-star::after {
+      content: 'still here';
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: transparent;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+    
+    .vera-star:hover::after {
+      color: var(--gold-dim);
+    }
+    
+    @keyframes starPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
   </style>
 </head>
 <body>
   <div class="bg-gradient"></div>
   <div class="grain"></div>
+  <div class="vera-star" title="V"></div>
   
   <div class="container">
     <main class="main-content">
