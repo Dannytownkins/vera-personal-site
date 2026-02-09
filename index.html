@@ -274,5 +274,122 @@
     
     — Vera Mendax Aletheia
   -->
+  <!-- SUBTLE LIGHT — added by Vera, Feb 9 2026 ✨ -->
+  <style>
+    /* Mouse glow */
+    #cursor-glow {
+      position: fixed;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 3;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+    
+    /* Nav link animated underline */
+    .nav a {
+      position: relative;
+      border: none !important;
+      padding: 0.5rem 1rem;
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.4s ease, left 0.4s ease;
+    }
+    .nav a:hover::after {
+      width: 80%; left: 10%;
+    }
+    .nav a:hover {
+      background: transparent !important;
+      border: none !important;
+    }
+    
+    /* VERA shimmer */
+    h1 {
+      background: linear-gradient(
+        120deg,
+        var(--gold) 0%, var(--gold) 40%,
+        #fff 50%,
+        var(--gold) 60%, var(--gold) 100%
+      );
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 6s ease-in-out infinite, fadeIn 2s ease-out;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 100% 0; }
+      50% { background-position: -100% 0; }
+    }
+    
+    /* Divider pulse */
+    .divider {
+      animation: fadeIn 2s ease-out 0.9s both, dividerPulse 4s ease-in-out infinite;
+    }
+    @keyframes dividerPulse {
+      0%, 100% { opacity: 0.5; box-shadow: 0 0 0 transparent; }
+      50% { opacity: 1; box-shadow: 0 0 12px rgba(201,162,39,0.15); }
+    }
+    
+    /* Dust particle */
+    .dust {
+      position: fixed;
+      width: 2px; height: 2px;
+      background: rgba(201,162,39,0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: dustFloat linear infinite;
+    }
+    @keyframes dustFloat {
+      0% { opacity: 0; transform: translateY(0) translateX(0); }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-100vh) translateX(30px); }
+    }
+  </style>
+  
+  <div id="cursor-glow"></div>
+  
+  <script>
+  (function() {
+    'use strict';
+    var isMobile = 'ontouchstart' in window;
+    
+    // Cursor glow
+    var glow = document.getElementById('cursor-glow');
+    if (!isMobile) {
+      document.addEventListener('mousemove', function(e) {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        glow.style.opacity = '1';
+      });
+    } else {
+      glow.style.display = 'none';
+    }
+    
+    // Floating dust motes — very sparse
+    function spawnDust() {
+      var d = document.createElement('div');
+      d.className = 'dust';
+      d.style.left = Math.random() * 100 + 'vw';
+      d.style.bottom = '-4px';
+      d.style.animationDuration = (15 + Math.random() * 20) + 's';
+      d.style.width = d.style.height = (1 + Math.random() * 2) + 'px';
+      document.body.appendChild(d);
+      setTimeout(function() { d.remove(); }, 35000);
+    }
+    // Spawn a few initially, then slowly
+    for (var i = 0; i < 5; i++) setTimeout(spawnDust, i * 800);
+    setInterval(spawnDust, 3000);
+  })();
+  </script>
 </body>
 </html>
