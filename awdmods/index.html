@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWDMods · Pricing Issues</title>
+  <title>AWDMods · Draft Products</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -17,39 +17,42 @@
     .stat{text-align:center}
     .stat-val{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;line-height:1}
     .stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-    .stat-val.green{color:var(--green)}.stat-val.red{color:var(--red)}.stat-val.muted{color:var(--muted)}
+    .stat-val.green{color:var(--green)}.stat-val.yellow{color:var(--yellow)}.stat-val.muted{color:var(--muted)}
     .progress-bar-wrap{height:4px;background:var(--surface2);border-radius:2px;margin-top:10px;overflow:hidden}
     .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .4s ease}
-    .content{padding:16px 20px 40px}
-    .section{margin-bottom:12px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-    .section-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface);cursor:pointer;user-select:none}
-    .section-header:hover{background:var(--surface2)}
-    .section-chevron{color:var(--muted);transition:transform .2s;flex-shrink:0}
-    .section.collapsed .section-chevron{transform:rotate(-90deg)}
-    .section-title{font-weight:600;font-size:13px;flex:1}
-    .section-count{font-family:'Space Mono',monospace;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:700}
-    .count-red{background:var(--red-dim);color:var(--red)}
-    .count-yellow{background:var(--yellow-dim);color:var(--yellow)}
-    .count-green{background:var(--green-dim);color:var(--green)}
-    .section-body{background:var(--bg)}
-    .section.collapsed .section-body{display:none}
-    .issue-row{display:grid;grid-template-columns:28px 1fr auto 120px;align-items:start;gap:10px;padding:9px 14px;border-top:1px solid var(--border);transition:background .1s}
-    .issue-row:hover{background:var(--surface)}.issue-row.done{opacity:.4}
-    .status-btn{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .15s}
+    .toolbar{display:flex;gap:8px;align-items:center;padding:12px 20px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+    .search-wrap{flex:1;min-width:180px;position:relative}
+    .search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+    .search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:7px 12px 7px 32px;outline:none;font-family:inherit}
+    .search-input:focus{border-color:var(--accent)}.search-input::placeholder{color:var(--muted)}
+    .filter-btn{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;white-space:nowrap}
+    .filter-btn:hover{color:var(--text)}.filter-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+    .content{padding:16px 20px 60px}
+    .product-row{display:grid;grid-template-columns:28px 1fr 200px 160px 36px;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;transition:background .1s;background:var(--surface)}
+    .product-row:hover{background:var(--surface2)}.product-row.done{opacity:.45}
+    .product-row.hidden{display:none}
+    .status-btn{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
     .status-btn:hover{border-color:var(--green)}
-    .issue-row.done .status-btn{border-color:var(--green);background:var(--green-dim)}
-    .check-icon{width:8px;height:8px;display:none}
-    .issue-row.done .check-icon{display:block;color:var(--green)}
-    .issue-info{}
-    .issue-title{font-size:12px;color:var(--text);line-height:1.4}
-    .issue-sku{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px}
-    .issue-detail{font-size:11px;margin-top:4px;padding:4px 8px;background:var(--surface2);border-radius:4px;border-left:3px solid var(--red);color:var(--text)}
-    .issue-row.done .issue-detail{border-left-color:var(--green)}
-    .issue-actions{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
-    .shopify-btn{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);text-decoration:none;transition:all .15s;white-space:nowrap}
+    .product-row.done .status-btn{border-color:var(--green);background:var(--green-dim)}
+    .check-dot{width:8px;height:8px;border-radius:50%;display:none;background:var(--green)}
+    .product-row.done .check-dot{display:block}
+    .product-info{}
+    .product-title{font-size:12px;color:var(--text);line-height:1.4}
+    .product-meta{font-size:10px;color:var(--muted);margin-top:2px}
+    .product-meta .vendor{color:var(--accent)}
+    .type-missing{color:var(--red);font-style:italic}
+    .type-select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:11px;padding:5px 8px;outline:none;font-family:inherit;cursor:pointer}
+    .type-select:focus{border-color:var(--accent)}
+    .type-select.changed{border-color:var(--yellow);color:var(--yellow)}
+    .type-select.saved{border-color:var(--green);color:var(--green)}
+    .save-btn{padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all .15s;white-space:nowrap}
+    .save-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .save-btn.saving{border-color:var(--yellow);color:var(--yellow)}
+    .save-btn.saved{border-color:var(--green);color:var(--green)}
+    .shopify-btn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);text-decoration:none;transition:all .15s;flex-shrink:0}
     .shopify-btn:hover{border-color:var(--green);color:var(--green)}
-    .note-input{width:120px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:10px;font-family:inherit;padding:3px 6px;outline:none}
-    .note-input:focus{border-color:var(--accent)}.note-input::placeholder{color:var(--muted)}
+    .no-results{padding:40px;text-align:center;color:var(--muted);font-size:13px}
+    .section-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:12px 0 6px;margin-top:4px}
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
   </style>
 </head>
@@ -58,152 +61,210 @@
 <div class="header">
   <div class="header-top">
     <div>
-      <div class="header-title">AWDMods · Pricing Issues</div>
-      <div class="header-subtitle">Audit: March 3, 2026 — progress saves in your browser</div>
+      <div class="header-title">AWDMods · Draft Products</div>
+      <div class="header-subtitle">40 drafts — pick type in dropdown → open in Shopify to save → mark done</div>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-val green" id="stat-done">0</div><div class="stat-label">Fixed</div></div>
-      <div class="stat"><div class="stat-val red" id="stat-open">11</div><div class="stat-label">Open</div></div>
-      <div class="stat"><div class="stat-val muted" id="stat-total">11</div><div class="stat-label">Total</div></div>
+      <div class="stat"><div class="stat-val green" id="stat-done">0</div><div class="stat-label">Done</div></div>
+      <div class="stat"><div class="stat-val yellow" id="stat-missing">0</div><div class="stat-label">No Type</div></div>
+      <div class="stat"><div class="stat-val muted" id="stat-left">40</div><div class="stat-label">Remaining</div></div>
     </div>
   </div>
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="main-progress" style="width:0%"></div></div>
 </div>
 
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="search-input" id="search" type="text" placeholder="Search product or vendor…" oninput="applyFilters()">
+  </div>
+  <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">All (40)</button>
+  <button class="filter-btn" id="filter-notype" onclick="setFilter('notype')">No Type</button>
+  <button class="filter-btn" id="filter-pending" onclick="setFilter('pending')">Pending</button>
+  <button class="filter-btn" id="filter-done" onclick="setFilter('done')">Done</button>
+</div>
+
 <div class="content" id="content"></div>
 
 <script>
-const STORE='e1520g-k3';
-function shopUrl(pid){return `https://${STORE}.myshopify.com/admin/products/${pid}`}
+const SHOP='e1520g-k3';
 
-const ISSUES = [
-  {
-    section: "🚨 Compare-At LOWER Than Price (price looks marked up)",
-    severity: "red",
-    items: [
-      { id:"h&r-rear-sway", pid:"7024887726145", sku:"ford-focus-rs-hr-rear-sway-bar-71747",
-        title:"H&R 24mm 2-Way Adjustable Rear Sway Bar — Ford Focus RS",
-        detail:"Price $499.00 but compare-at is $359.00 — looks like it's marked UP. Flip or remove compare-at." },
-      { id:"magnaflow-catback", pid:"7024886939713", sku:"ford-focus-rs-magnaflow-competition-series-cat-back-exhaust",
-        title:"MagnaFlow Competition Series Cat-Back Exhaust — Ford Focus RS",
-        detail:"Price $1,682.00 but compare-at is $1,495.23 — same issue, compare-at below price." },
-      { id:"eibach-springs", pid:"7024893771841", sku:"7728",
-        title:"Eibach Pro-Kit Lowering Springs — Subaru WRX STI",
-        detail:"Price $395.00 but compare-at is $356.67." },
-      { id:"injen-evo", pid:"7024895049793", sku:"EVO1206",
-        title:"Injen Evolution Series Cold Air Intake — Subaru WRX STI",
-        detail:"Price $463.00 but compare-at is $418.89." },
-      { id:"injen-sp-polished", pid:"7024895049793", sku:"AWD2455",
-        title:"Injen SP Series Cold Air Intake (Polished) — Subaru WRX STI",
-        detail:"Price $405.48 but compare-at is $342.06." },
-      { id:"injen-sp-red", pid:"7024895049793", sku:"AWD2454",
-        title:"Injen SP Series Cold Air Intake (Wrinkle Red) — Subaru WRX STI",
-        detail:"Price $405.48 but compare-at is $342.06." },
-      { id:"injen-sp-black", pid:"7024895049793", sku:"AWD2456",
-        title:"Injen SP Series Cold Air Intake (Black) — Subaru WRX STI",
-        detail:"Price $405.48 but compare-at is $342.06." },
-    ]
-  },
-  {
-    section: "⚠️ Compare-At Equals Price (no discount shown — pointless)",
-    severity: "yellow",
-    items: [
-      { id:"h&r-front-sway", pid:"7024887726145", sku:"ford-focus-rs-hr-front-sway-bar-70747",
-        title:"H&R 26mm 2-Way Adjustable Front Sway Bar — Ford Focus RS",
-        detail:"Price $499.00 = compare-at $499.00. No discount is shown — should either set a real compare-at or remove it." },
-      { id:"injen-downpipe", pid:"7024895049793", sku:"SES1205DP",
-        title:"Injen Super SES Downpipe with High Flow Cat — Subaru WRX STI",
-        detail:"Price $633.13 = compare-at $633.13. Same — no discount visible, remove compare-at." },
-    ]
-  },
-  {
-    section: "⚠️ Compare-At is $0.00 (shows as crossed-out $0)",
-    severity: "yellow",
-    items: [
-      { id:"aem-strut", pid:"7024882745409", sku:"subaru-wrx-sti-aem-front-strut-tower-bar-29-0011WR",
-        title:"AEM Front Strut Tower Bar — Subaru WRX/STI",
-        detail:"Price $346.99, compare-at is $0.00. Will display a crossed-out $0.00 which looks broken. Remove compare-at." },
-    ]
-  },
-  {
-    section: "🔍 Sanity Check",
-    severity: "green",
-    items: [
-      { id:"ets-turbo", pid:"", sku:"ford-focus-rs-turbo-kit-ets",
-        title:"Extreme Turbo Systems Turbo Upgrade Kit — Ford Focus RS",
-        detail:"Price $6,295.00 — flagged as >$5k. Is this intentional? If yes, mark done." },
-    ]
-  }
+
+const TYPES=["Accessories","Accessory","Blow Off Valve","Brake Pads","Brake Rotor","Camber Arms","Carbon Fiber Cover","Carbon Fiber Trim","Cargo Organizer","Cat-Back Exhaust","Cat-Back Exhaust Systems","Chassis Brace","Clutch Kit","Coilovers","Cold Air Intake","Coolant Hose","Cooling Component","Differential Upgrade","Engine Component","Engine Dress Up","Engine Mount","Exhaust System","Exhaust Systems","Expansion Tank","Exterior Accessory","Exterior Styling","Fender Flares","Floor Mats","Front Splitter","Front Splitters","Fuel System","Headlight","Hood","Hood Lift Kit","Intake System","Intercooler","Intercoolers","Interior Accessory","License Plate Relocation","Lowering Springs","Mirror Covers","Mud Flaps","Oil Catch Can","Pedal Spacer","Radiator","Radiator Hoses","Rear Diffuser","Seat Bracket","Shift Knob","Shift Knob Accent","Short Throw Shifters","Spoiler","Side Skirts","Sway Bars","Tow Hook","Trunk","Tuning Module","Wastegate","Wheel Spacers","Wing Accessories"];
+
+const PRODUCTS=[
+  {id:"7757587415105",title:"Borla Cat-Back S-Type Exhaust System for the Ford Focus ST",vendor:"Borla",type:"Cat-Back Exhaust",variants:1},
+  {id:"7757595836481",title:"Borla Cat-Back ATAK Exhaust System for the Ford Focus RS",vendor:"Borla",type:"Cat-Back Exhaust",variants:2},
+  {id:"7757595934785",title:"Borla Cat-Back S-Type Exhaust System for the Ford Focus RS",vendor:"Borla",type:"Cat-Back Exhaust",variants:2},
+  {id:"7757601570881",title:"Borla Cat-Back S-Type Exhaust System for the Subaru WRX / STI",vendor:"Borla",type:"Cat-Back Exhaust",variants:1},
+  {id:"7757587906625",title:"Cal Pony Cars Carbon Fiber Side View Mirror Covers for the Ford Focus RS / ST (Set of 2)",vendor:"Cal Pony Cars",type:"Mirror Covers",variants:1},
+  {id:"7757596098625",title:"Cal Pony Cars Carbon Fiber Air Intake Box Cover for the Ford Focus RS",vendor:"Cal Pony Cars",type:"Intake System",variants:1},
+  {id:"7757596196929",title:"Cal Pony Cars Carbon Fiber Chin Spoiler for the Ford Focus RS",vendor:"Cal Pony Cars",type:"Spoiler",variants:1},
+  {id:"7757596459073",title:"Cal Pony Cars Rear Canards for the Ford Focus RS",vendor:"Cal Pony Cars",type:"Canards",variants:1},
+  {id:"7774563434561",title:"Cal Pony Cars Carbon Fiber Exhaust Trim for the Ford Focus ST",vendor:"Cal Pony Cars",type:"",variants:1},
+  {id:"7787119607873",title:"ETS Cat-Back Exhaust System for the Ford Focus RS",vendor:"ETS",type:"Cat-Back Exhaust",variants:1},
+  {id:"7787119706177",title:"ETS Extreme Cat-Back Exhaust System for the Ford Focus RS",vendor:"ETS",type:"Cat-Back Exhaust",variants:1},
+  {id:"7787119771713",title:"ETS Front Mount Intercooler for the Ford Focus RS",vendor:"ETS",type:"Intercooler",variants:1},
+  {id:"7787119804481",title:"ETS Intake System for the Ford Focus RS",vendor:"ETS",type:"Intake System",variants:1},
+  {id:"7787119870017",title:"ETS Intercooler Piping Kit for the Ford Focus RS",vendor:"ETS",type:"Intercooler",variants:1},
+  {id:"7787120361537",title:"ETS Cat-Back Extreme Exhaust System for the Subaru WRX / STI",vendor:"ETS",type:"Cat-Back Exhaust",variants:4},
+  {id:"7757588365377",title:"Grimmspeed Lightweight Battery Mount Kit for the Ford Focus RS / ST",vendor:"Grimmspeed",type:"Engine Component",variants:1},
+  {id:"7757598294081",title:"Grimmspeed License Plate Relocation Kit for the Ford Focus RS",vendor:"Grimmspeed",type:"License Plate Relocation",variants:1},
+  {id:"7757601964097",title:"Grimmspeed License Plate Relocation Kit for the Subaru WRX / STI",vendor:"Grimmspeed",type:"License Plate Relocation",variants:1},
+  {id:"7757618446401",title:"Grimmspeed Battery Tie Down for the Subaru WRX STI",vendor:"Grimmspeed",type:"Battery Accessories",variants:1},
+  {id:"7757618479169",title:"Grimmspeed Radiator Hose Kit for the Subaru WRX STI",vendor:"Grimmspeed",type:"Radiator Hoses",variants:2},
+  {id:"7757618544705",title:"Grimmspeed Stealthbox Cold Air Intake for the Subaru WRX STI",vendor:"Grimmspeed",type:"Cold Air Intake",variants:2},
+  {id:"7774564089921",title:"Grimmspeed Boost Control Solenoid 3-Port for the Subaru WRX STI",vendor:"GrimmSpeed",type:"",variants:1},
+  {id:"7774565728321",title:"Mishimoto Race Cold Air Intake for the Subaru WRX STI",vendor:"Mishimoto",type:"",variants:4},
+  {id:"7757590233153",title:"Seibon Carbon Fiber Hatchback Trunk Lid for the Ford Focus RS / ST",vendor:"Seibon",type:"Trunk",variants:1},
+  {id:"7757590331457",title:"Seibon Dry Carbon Fiber Replacement Roof for the Ford Focus RS / ST",vendor:"Seibon",type:"Roof",variants:1},
+  {id:"7757590429761",title:"Seibon RS-Style Carbon Fiber Hood for the Ford Focus RS / ST",vendor:"Seibon",type:"Hood",variants:1},
+  {id:"7757600129089",title:"Seibon Carbon Fiber Fog Light Bezels for the Ford Focus RS (Set of 2)",vendor:"Seibon",type:"Exterior Accessory",variants:1},
+  {id:"7757600161857",title:"Seibon Carbon Fiber Front Bumper Garnish for the Ford Focus RS",vendor:"Seibon",type:"Accessory",variants:1},
+  {id:"7757600194625",title:"Seibon Carbon Fiber Rear Spoiler for the Ford Focus RS",vendor:"Seibon",type:"Spoiler",variants:1},
+  {id:"7757600227393",title:"Seibon SA Style Carbon Fiber Rear Lip for the Ford Focus RS",vendor:"Seibon",type:"Accessory",variants:1},
+  {id:"7757600260161",title:"Seibon SA Style Carbon Fiber Side Skirts for the Ford Focus RS",vendor:"Seibon",type:"Side Skirts",variants:1},
+  {id:"7757602914369",title:"Seibon Carbon Fiber Fog Light Bezels for the Subaru WRX / STI (Set of 2)",vendor:"Seibon",type:"Exterior Accessory",variants:1},
+  {id:"7757602947137",title:"Seibon CW Style Carbon Fiber Hood for the Subaru WRX / STI",vendor:"Seibon",type:"Hood",variants:1},
+  {id:"7757602979905",title:"Seibon MB1 Style Carbon Fiber Front Lip for the Subaru WRX / STI",vendor:"Seibon",type:"Accessory",variants:1},
+  {id:"7757603012673",title:"Seibon OEM Style Carbon Fiber Hood for the Subaru WRX STI",vendor:"Seibon",type:"Hood",variants:1},
+  {id:"7757603045441",title:"Seibon OEM Style Carbon Fiber Trunk Lid for the Subaru WRX STI",vendor:"Seibon",type:"Trunk",variants:1},
+  {id:"7757603078209",title:"Seibon STI Style Carbon Fiber Spoiler for the Subaru WRX / STI",vendor:"Seibon",type:"Spoiler",variants:1},
+  {id:"7774564614209",title:"Seibon OEM Style Carbon Fiber Fenders for the Subaru WRX / STI (Pair)",vendor:"Seibon",type:"",variants:1},
+  {id:"7807281430593",title:"Seibon Carbon Fiber Fog Light Bezels for the Ford Focus RS (Set of 2)",vendor:"Seibon",type:"Exterior Styling",variants:1},
+  {id:"7774564876353",title:"Tufskinz AC Vent Accent Kit in Glossy Domed Carbon Fiber for the Ford Focus RS (4 Piece Kit)",vendor:"Tufskinz",type:"",variants:1},
 ];
 
-function getState(){try{return JSON.parse(localStorage.getItem('awdmods-pricing')||'{}')}catch{return{}}}
-function saveState(s){localStorage.setItem('awdmods-pricing',JSON.stringify(s))}
+let currentFilter='all';
+
+function getState(){try{return JSON.parse(localStorage.getItem('awdmods-drafts')||'{}')}catch{return{}}}
+function saveState(s){localStorage.setItem('awdmods-drafts',JSON.stringify(s))}
+
+function shopUrl(id){return `https://${SHOP}.myshopify.com/admin/products/${id}`}
 
 function render(){
   const state=getState();
-  const content=document.getElementById('content');
-  content.innerHTML=ISSUES.map(section=>{
-    const id='sec-'+section.section.slice(0,10).replace(/\W/g,'_');
-    const rows=section.items.map(item=>{
-      const done=!!(state[item.id]||{}).done;
-      const note=(state[item.id]||{}).note||'';
-      return `<div class="issue-row ${done?'done':''}" id="row-${item.id}">
-<button class="status-btn" onclick="toggle('${item.id}')" title="Mark fixed">
-<svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 12 4 16"/></svg>
-</button>
-<div class="issue-info">
-<div class="issue-title">${item.title}</div>
-<div class="issue-sku">${item.sku}</div>
-<div class="issue-detail">${item.detail}</div>
+  // group by vendor
+  const vendors=[...new Set(PRODUCTS.map(p=>p.vendor))];
+  let html='';
+  for(const vendor of vendors){
+    const prods=PRODUCTS.filter(p=>p.vendor===vendor);
+    html+=`<div class="section-label">${vendor}</div>`;
+    for(const p of prods){
+      const ps=state[p.id]||{};
+      const done=!!ps.done;
+      const currentType=ps.type!==undefined?ps.type:p.type;
+      const noType=!currentType;
+      const typeOpts=TYPES.map(t=>`<option value="${t}" ${currentType===t?'selected':''}>${t}</option>`).join('');
+      html+=`<div class="product-row ${done?'done':''}" id="row-${p.id}" data-vendor="${p.vendor.toLowerCase()}" data-title="${p.title.toLowerCase()}" data-notype="${noType?'1':'0'}">
+<button class="status-btn" onclick="toggleDone('${p.id}')" title="Mark done"><div class="check-dot"></div></button>
+<div class="product-info">
+  <div class="product-title">${p.title}</div>
+  <div class="product-meta"><span class="vendor">${p.vendor}</span> · ${p.variants} variant${p.variants>1?'s':''} ${noType?'· <span class="type-missing">no type set</span>':''}</div>
 </div>
-<div class="issue-actions">
-${item.pid?`<a class="shopify-btn" href="${shopUrl(item.pid)}" target="_blank">Open in Shopify ↗</a>`:''}
-<input class="note-input" placeholder="Notes…" value="${note}" onchange="saveNote('${item.id}',this.value)">
-</div>
+<select class="type-select" id="sel-${p.id}" onchange="onTypeChange('${p.id}',this)">
+  <option value="">— select type —</option>
+  ${typeOpts}
+</select>
+<button class="save-btn" id="save-${p.id}" onclick="markSaved('${p.id}')">Mark Done</button>
+<a class="shopify-btn" href="${shopUrl(p.id)}" target="_blank" title="Open in Shopify">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+</a>
 </div>`;
-    }).join('');
-    return `<div class="section" id="${id}">
-<div class="section-header" onclick="toggleSec('${id}')">
-<svg class="section-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-<span class="section-title">${section.section}</span>
-<span class="section-count count-${section.severity}">${section.items.length}</span>
-</div>
-<div class="section-body">${rows}</div>
-</div>`;
-  }).join('');
+    }
+  }
+  document.getElementById('content').innerHTML=html;
   updateStats();
 }
 
-function toggle(id){
+function onTypeChange(id,sel){
+  sel.classList.add('changed');
+  sel.classList.remove('saved');
+  document.getElementById('save-'+id).classList.remove('saved');
+}
+
+function markSaved(id){
+  const sel=document.getElementById('sel-'+id);
+  const type=sel.value;
+  const btn=document.getElementById('save-'+id);
+  const s=getState();
+  if(!s[id])s[id]={};
+  s[id].type=type;
+  s[id].done=true;
+  saveState(s);
+  sel.classList.remove('changed');sel.classList.add('saved');
+  btn.textContent='Done ✓';btn.classList.add('saved');
+  const row=document.getElementById('row-'+id);
+  row.classList.add('done');
+  row.dataset.notype='0';
+  const meta=row.querySelector('.type-missing');
+  if(meta)meta.remove();
+  updateStats();
+  applyFilters();
+  setTimeout(()=>{btn.textContent='Mark Done';btn.classList.remove('saved');sel.classList.remove('saved');},2500);
+}
+
+function toggleDone(id){
   const s=getState();
   if(!s[id])s[id]={};
   s[id].done=!s[id].done;
   saveState(s);
-  const row=document.getElementById('row-'+id);
-  row.classList.toggle('done',s[id].done);
+  document.getElementById('row-'+id).classList.toggle('done',s[id].done);
   updateStats();
+  applyFilters();
 }
 
-function saveNote(id,val){
-  const s=getState();
-  if(!s[id])s[id]={};
-  s[id].note=val;
-  saveState(s);
+function setFilter(f){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('filter-'+f).classList.add('active');
+  applyFilters();
 }
 
-function toggleSec(id){document.getElementById(id).classList.toggle('collapsed')}
+function applyFilters(){
+  const q=document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.product-row').forEach(row=>{
+    const matchesSearch=!q||row.dataset.title.includes(q)||row.dataset.vendor.includes(q);
+    const isDone=row.classList.contains('done');
+    const noType=row.dataset.notype==='1';
+    const matchesFilter=
+      currentFilter==='all'||
+      (currentFilter==='done'&&isDone)||
+      (currentFilter==='pending'&&!isDone)||
+      (currentFilter==='notype'&&noType&&!isDone);
+    row.classList.toggle('hidden',!matchesSearch||!matchesFilter);
+  });
+  // hide empty section labels
+  document.querySelectorAll('.section-label').forEach(label=>{
+    let next=label.nextElementSibling;
+    let hasVisible=false;
+    while(next&&next.classList.contains('product-row')){
+      if(!next.classList.contains('hidden'))hasVisible=true;
+      next=next.nextElementSibling;
+    }
+    label.style.display=hasVisible?'':'none';
+  });
+}
 
 function updateStats(){
   const state=getState();
-  const total=ISSUES.reduce((a,s)=>a+s.items.length,0);
-  const done=ISSUES.reduce((a,s)=>a+s.items.filter(i=>(state[i.id]||{}).done).length,0);
+  const total=PRODUCTS.length;
+  const done=PRODUCTS.filter(p=>(state[p.id]||{}).done).length;
+  const noType=PRODUCTS.filter(p=>{
+    const ps=state[p.id]||{};
+    const t=ps.type!==undefined?ps.type:p.type;
+    return !t&&!(ps.done);
+  }).length;
   document.getElementById('stat-done').textContent=done;
-  document.getElementById('stat-open').textContent=total-done;
-  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-missing').textContent=noType;
+  document.getElementById('stat-left').textContent=total-done;
   document.getElementById('main-progress').style.width=(done/total*100).toFixed(1)+'%';
+  document.getElementById('filter-all').textContent=`All (${total})`;
+  document.getElementById('filter-notype').textContent=`No Type (${noType})`;
 }
 
 render();
+applyFilters();
 </script>
 </body>
 </html>
